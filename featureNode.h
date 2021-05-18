@@ -2,6 +2,7 @@
 #define _FEATURENODE_H_
 
 #include <vector>
+#include <set>
 
 using namespace std;
 
@@ -10,9 +11,9 @@ class featureNode{
         featureNode();
         featureNode(int);
         featureNode(int, featureNode*);
-        featureNode(vector<int>,vector<int>);
+        featureNode(set<int>,set<int>);
         ~featureNode();
-        vector<int> name;
+        set<int> name;
         vector<featureNode*> children;
         featureNode* parent;
         double score;

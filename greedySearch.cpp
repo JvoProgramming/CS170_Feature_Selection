@@ -42,31 +42,33 @@ featureNode* greedySearch::search(featureNode* root){
     }
     curr->print();
     next = this->maxChild;
-    next->printName();
-    cout << "maxIndex: " << maxIndex+1 << endl;
+    cout << "Feature set "; next->printName(); cout << " was best, accuracy is ";
     printMax();
     this->numOfFeatures--;
 
     while(this->numOfFeatures > 0){
         max = 0;
+        vector<int> addName;
         for(int i = 0; i < curr->children.size(); i++){
             if(i == maxIndex){
                 continue;
             }
             else{
-                featureNode* child = new featureNode(maxChild->name, curr->children.at(i)->name);
-                child->printName();
-            
-                if(existingFeatures.find(child->name) != existingFeatures.end()){
-                    existingFeatures.insert(child->name);
-                    next->children.push_back(child);
-                    cout << "PUSHED" << endl;
+                featureNode* child = new featureNode(next->name, curr->children.at(i)->name);
+                if(child->score > max){
+                    this->maxChild = child;
+                    max = child->score;
                 }
+                next->children.push_back(child);
             }
-
         }
+
         curr = next;
         next = this->maxChild;
+        curr->print();
+        cout << "Feature set "; next->printName(); cout << " was best, accuracy is ";
+        printMax();
+
         this->numOfFeatures--;
     }
 

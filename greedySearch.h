@@ -7,6 +7,7 @@
 #include <vector>
 #include <set>
 
+using namespace std;
 
 class greedySearch{
     public:
