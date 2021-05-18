@@ -10,13 +10,15 @@ class featureNode{
         featureNode();
         featureNode(int);
         featureNode(int, featureNode*);
+        featureNode(vector<int>);
         ~featureNode();
         vector<int> name;
         vector<featureNode*> children;
         featureNode* parent;
-        int score;
+        double score;
         void generateChildren();
         void print();
+        void printName();
 
 };
 

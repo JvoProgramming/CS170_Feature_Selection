@@ -18,6 +18,7 @@ class greedySearch{
         int numOfFeatures;
         set<vector<featureNode*>> existingFeatures;
         featureNode* maxChild;
+        void printMax();
 
 };
 

@@ -30,7 +30,6 @@ int main(){
     featureNode* test = new featureNode();
     greedySearch* greedyObj = new greedySearch(4);
     greedyObj->search(test);
-    test->print();
 
 
    return 0;
