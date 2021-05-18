@@ -10,7 +10,7 @@ class featureNode{
         featureNode();
         featureNode(int);
         featureNode(int, featureNode*);
-        featureNode(vector<int>);
+        featureNode(vector<int>,vector<int>);
         ~featureNode();
         vector<int> name;
         vector<featureNode*> children;

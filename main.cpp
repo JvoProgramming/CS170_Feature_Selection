@@ -1,10 +1,15 @@
 #include <iostream>
 #include "greedySearch.h"
 #include "featureNode.h"
+#include <stdlib.h>
+#include <time.h>
 
 using namespace std;
 
+
+
 int main(){
+    srand(time(NULL));
     /*int input, choice;
     
     cout << "Welcome to Johnny and Diego's Feature Selection Algorithm." << endl;
