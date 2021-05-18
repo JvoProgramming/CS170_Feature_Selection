@@ -20,6 +20,7 @@ class greedySearch{
         set<set<int>> existingFeatures;
         featureNode* maxChild;
         void printMax();
+        featureNode* bestNode;
 
 };
 

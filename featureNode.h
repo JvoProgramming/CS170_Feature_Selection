@@ -20,6 +20,7 @@ class featureNode{
         void generateChildren();
         void print();
         void printName();
+        double getScore();
 
 };
 

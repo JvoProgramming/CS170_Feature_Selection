@@ -61,3 +61,7 @@ void featureNode::generateChildren(){
 
 }
 
+double featureNode::getScore(){
+    return this->score;
+}
+
