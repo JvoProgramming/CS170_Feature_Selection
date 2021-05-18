@@ -39,6 +39,7 @@ featureNode* greedySearch::search(featureNode* root){
             max = child->score;
         }
         curr->children.push_back(child);
+        this->existingFeatures.insert(child->name);
     }
     curr->print();
     next = this->maxChild;
@@ -48,18 +49,21 @@ featureNode* greedySearch::search(featureNode* root){
 
     while(this->numOfFeatures > 0){
         max = 0;
-        vector<int> addName;
+        set<int> setCheck;
         for(int i = 0; i < curr->children.size(); i++){
-            if(i == maxIndex){
-                continue;
+            //check if set already exists
+            featureNode* child = new featureNode(next->name, curr->children.at(i)->name);
+            if(child->score > max){
+                this->maxChild = child;
+                max = child->score;
+            }
+            if(this->existingFeatures.find(child->name) != this->existingFeatures.end()){
+                //item exists in set
             }
             else{
-                featureNode* child = new featureNode(next->name, curr->children.at(i)->name);
-                if(child->score > max){
-                    this->maxChild = child;
-                    max = child->score;
-                }
+                //item does not exist in set
                 next->children.push_back(child);
+                this->existingFeatures.insert(child->name);
             }
         }
 
