@@ -15,6 +15,10 @@ int main(){
     cout << "Welcome to Johnny and Diego's Feature Selection Algorithm." << endl;
     cout << "Please enter total number of features: ";
     cin >> numFeatures;
+    if(numFeatures < 1){
+        cout << "The number of features must be greater than 0" << endl;
+        return 0;
+    }
     cout << "Type the number of the algorithm you want to run." << endl;
     cout << "1) Forward Selection" << endl;
     cout << "2) Backward Elimination" << endl;
@@ -27,12 +31,15 @@ int main(){
     switch(choice)
     {
         case 1:
+            cout << endl << "User choose: Forward Selection" << endl;
             greedyObj->search(test);
             break;
         case 2:
+            cout << endl << "User choose: Backward Selection" << endl;
             greedyObj->backSearch(test);
             break;
         case 3:
+            cout << endl << "User choose: Generous Selection" << endl;
             greedyObj->generousSearch(test);
             break;
     }
