@@ -30,6 +30,7 @@ int main(){
             greedyObj->search(test);
             break;
         case 2:
+            greedyObj->backSearch(test);
             break;
     }
 

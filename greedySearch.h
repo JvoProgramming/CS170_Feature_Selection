@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <vector>
 #include <set>
+#include <typeinfo>
 
 using namespace std;
 
@@ -15,13 +16,18 @@ class greedySearch{
         greedySearch(int);
         ~greedySearch();
         featureNode* search(featureNode* root);
+        featureNode* backSearch(featureNode* root);
         featureNode* root;
         int numOfFeatures;
         set<set<int>> existingFeatures;
         featureNode* maxChild;
         void printMax();
         featureNode* bestNode;
+        void generateSubsets();
+        set<set<int>> subsets;
 
 };
+
+
 
 #endif

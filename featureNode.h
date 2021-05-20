@@ -12,6 +12,7 @@ class featureNode{
         featureNode(int);
         featureNode(int, featureNode*);
         featureNode(set<int>,set<int>);
+        featureNode(set<int>);
         ~featureNode();
         set<int> name;
         vector<featureNode*> children;
