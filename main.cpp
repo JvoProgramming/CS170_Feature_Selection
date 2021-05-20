@@ -22,6 +22,7 @@ int main(){
     cin >> choice;
 
     featureNode* test = new featureNode();
+    test->score = 99;
     greedySearch* greedyObj = new greedySearch(numFeatures);
     
     switch(choice)
@@ -31,6 +32,9 @@ int main(){
             break;
         case 2:
             greedyObj->backSearch(test);
+            break;
+        case 3:
+            greedyObj->generousSearch(test);
             break;
     }
 

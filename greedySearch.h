@@ -17,6 +17,7 @@ class greedySearch{
         ~greedySearch();
         featureNode* search(featureNode* root);
         featureNode* backSearch(featureNode* root);
+        featureNode* generousSearch(featureNode* root);
         featureNode* root;
         int numOfFeatures;
         set<set<int>> existingFeatures;
