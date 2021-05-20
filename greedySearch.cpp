@@ -36,7 +36,7 @@ greedySearch::~greedySearch(){
 }
 
 void greedySearch::printMax(){
-    cout << "Max Child Score: " << this->maxChild->score << "%" << endl;
+    cout << this->maxChild->score << "%" << endl;
 }
 
 featureNode* greedySearch::search(featureNode* root){
@@ -69,19 +69,11 @@ featureNode* greedySearch::search(featureNode* root){
     cout << endl << "Feature set "; next->printName(); cout << " was best, accuracy is ";
     printMax();
     cout << endl;
-    
-    if(root->score > maxChild->score){
-        cout << "(Warning, Accuracy has decreased!)" << endl;
-        cout << "Finished search!! The best feature is using none" << ", which has an accuracy of " << root->getScore() << '%' << endl << endl << endl;
-        return root;
-    }
-
     this->numOfFeatures--;
 
     //AFTER FIRST GENERATION
     while(this->numOfFeatures > 0){
         max = 0;
-        set<int> setCheck;
         for(int i = 0; i < curr->children.size(); i++){
             //check if set already exists
             featureNode* child = new featureNode(next->name, curr->children.at(i)->name);
@@ -137,7 +129,7 @@ featureNode* greedySearch::backSearch(featureNode* root){
     this->bestNode = curr;
     prevMax = curr->score;
     
-    cout << "Using all features, "; curr->printName(); cout << ", I get an accuracy of " << root->score << "%" << endl << endl;
+    cout << "Using no features and \"random\" evaluation, I get an accuracy of " << root->score << "%" << endl << endl;
     cout << "Beginning search." << endl << endl;
     
     auto powerSet = powerset(this->root->name);
@@ -200,7 +192,9 @@ featureNode* greedySearch::generousSearch(featureNode* root){ //a generous type 
     int bestScore = 0;
     featureNode* next = NULL;
     featureNode* curr = root;
-    featureNode* secondBest = NULL;
+    featureNode* firstBest = new featureNode();
+    bool enableGenerous = false;
+    bool isLocalMax = false;
 
     for(int i = 0; i < this->numOfFeatures; i++){
         featureNode* child = new featureNode(i+1);
@@ -209,7 +203,6 @@ featureNode* greedySearch::generousSearch(featureNode* root){ //a generous type 
             maxIndex = i;
             max = child->score;
             if(child->score > bestScore){
-                secondBest = bestNode;
                 this->bestNode = child;
                 bestScore = child->score;
             }
@@ -218,6 +211,7 @@ featureNode* greedySearch::generousSearch(featureNode* root){ //a generous type 
         this->existingFeatures.insert(child->name);
     }
     curr->print();
+
     next = this->maxChild;
     cout << endl << "Feature set "; next->printName(); cout << " was best, accuracy is ";
     printMax();
@@ -227,7 +221,6 @@ featureNode* greedySearch::generousSearch(featureNode* root){ //a generous type 
     //AFTER FIRST GENERATION
     while(this->numOfFeatures > 0){
         max = 0;
-        set<int> setCheck;
         for(int i = 0; i < curr->children.size(); i++){
             //check if set already exists
             featureNode* child = new featureNode(next->name, curr->children.at(i)->name);
@@ -249,23 +242,31 @@ featureNode* greedySearch::generousSearch(featureNode* root){ //a generous type 
             }
         }
 
-
         curr = next;
         next = this->maxChild;
         curr->print();
         cout << endl << "Feature set "; next->printName(); cout << " was best, accuracy is ";
+        if(enableGenerous && (this->bestNode->score > firstBest->score)){
+            printMax();
+            cout << endl << "Finished generous search!! ";
+            cout << "CHANGING BEST NODE!" << endl; firstBest->printName(); cout << " was actually a local max." << endl;
+
+            cout << "The best feature subset is "; bestNode->printName(); cout << ", which has an accuracy of " << this->bestNode->getScore() << '%' << endl << endl;
+            return this->bestNode;
+        }
         printMax();
         cout << endl;
 
         this->numOfFeatures--;
 
-        if(maxChild->score < bestScore){
+        if(maxChild->score < bestScore && enableGenerous == false){
             cout << "(Warning, Accuracy has decreased!)" << endl;
-            cout << "Finished search!! The best feature subset is "; bestNode->printName(); cout << ", which has an accuracy of " << this->bestNode->getScore() << '%' << endl << endl;
-            cout << "Now being generous and searching second best node, "; secondBest->printName(); cout << " with an accuracy of " << secondBest->getScore() << '%' << endl;
-            return this->bestNode;
+            cout << "Finished greedy search!! The best feature subset is "; bestNode->printName(); cout << ", which has an accuracy of " << this->bestNode->getScore() << '%' << endl << endl;
+            firstBest = this->bestNode;
+            enableGenerous = true;
+            cout << "Now being generous and searching if "; bestNode->printName(); cout << " with percentage " << bestNode->getScore() << '%' << " is a local max" << endl << endl;
         }
     }
-    cout << "(Warning, no more nodes to check) " << "Finished search!! The best feature subset is "; bestNode->printName(); cout << ", which has an accuracy of " << this->bestNode->getScore() << '%' << endl << endl << endl;
+    cout << "(Warning, cannot expand anymore features!)" << endl << "Finished generous search!! "; bestNode->printName(); cout << " is a global max" << " with percentage " << bestNode->getScore() << '%';
     return this->bestNode;
 }

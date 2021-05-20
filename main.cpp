@@ -22,7 +22,6 @@ int main(){
     cin >> choice;
 
     featureNode* test = new featureNode();
-    test->score = 99;
     greedySearch* greedyObj = new greedySearch(numFeatures);
     
     switch(choice)
