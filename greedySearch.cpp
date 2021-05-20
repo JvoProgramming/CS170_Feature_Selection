@@ -137,7 +137,7 @@ featureNode* greedySearch::backSearch(featureNode* root){
     this->bestNode = curr;
     prevMax = curr->score;
     
-    cout << "Using no features and \"random\" evaluation, I get an accuracy of " << root->score << "%" << endl << endl;
+    cout << "Using all features, "; curr->printName(); cout << ", I get an accuracy of " << root->score << "%" << endl << endl;
     cout << "Beginning search." << endl << endl;
     
     auto powerSet = powerset(this->root->name);
