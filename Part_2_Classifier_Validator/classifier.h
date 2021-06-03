@@ -5,16 +5,19 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <sstream>
+#include <iostream>
 
 using namespace std;
 
 class Classifier{
-    Classifier();
-    ~Classifier();
-    vector<Instance*> instances;
-    int numFeatures;
-    void train(string filename);
-    int test(Instance*);
+    public:
+        Classifier();
+        ~Classifier();
+        vector<Instance*> instances;
+        int numFeatures;
+        void train(string filename);
+        double test(double);
 };
 
 

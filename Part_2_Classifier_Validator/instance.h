@@ -6,8 +6,10 @@
 using namespace std;
 
 class Instance{
-    int instanceID;
-    vector<int> features; //FIRST INDEX IS CLASS LABEL
+    public:
+        double instanceID;
+        double classLabel;
+        vector<double> features; //FIRST INDEX IS CLASS LABEL
 };
 
 
