@@ -16,17 +16,18 @@ double Validator::loov(vector<int> featureSubset){
 
     for(int i = 0; i < this->instances.size(); i++){
         result = classifier->test(this->instances.at(i)->instanceID, featureSubset);
-        cout << "result: " << result << ' ' << "expected: " << this->instances.at(i)->classLabel << endl;
+        //cout << "result: " << result << ' ' << "expected: " << this->instances.at(i)->classLabel << endl;
         if(result == this->instances.at(i)->classLabel){
             correct_predictions++;
         }
     }
 
-    percentage = (double)correct_predictions/(double)this->instances.size();
-
-    cout << "FINAL PERCENTAGE: " << percentage << endl;
-
     high_resolution_clock::time_point t2 = high_resolution_clock::now();
     duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
+    cout << "Leave-One-Out-Validator took " << time_span.count() << " seconds." << endl;
+
+    percentage = (double)correct_predictions/(double)this->instances.size();
+
+    return percentage;
 
 }

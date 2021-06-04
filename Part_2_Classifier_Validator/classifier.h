@@ -12,8 +12,13 @@
 #include <iterator>
 #include <numeric>
 #include <cmath>
+#include <chrono>
+#include <ctime>
 #include "float.h"
 #include <set>
+
+using namespace std;
+using namespace std::chrono;
 
 template <typename T>
 double vectors_distance(const std::vector<T>& a, const std::vector<T>& b) //TAKEN FROM http://www.cplusplus.com/forum/general/209784/
@@ -25,8 +30,6 @@ double vectors_distance(const std::vector<T>& a, const std::vector<T>& b) //TAKE
 
 	return std::sqrt(std::accumulate(auxiliary.begin(), auxiliary.end(), 0.0));
 }
-
-using namespace std;
 
 class Classifier{
     public:

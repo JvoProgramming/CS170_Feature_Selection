@@ -10,6 +10,7 @@ void Classifier::train(string filename){
     string value;
     int countID = 0;
 
+    high_resolution_clock::time_point t1 = high_resolution_clock::now();
     while(!inFS.eof()){
         Instance* dataPoint = new Instance();
         dataPoint->instanceID = countID;
@@ -27,6 +28,38 @@ void Classifier::train(string filename){
     this->instances.pop_back();
     this->numFeatures = this->instances.at(0)->features.size()-1;
     inFS.close();
+    high_resolution_clock::time_point t2 = high_resolution_clock::now();
+    duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
+    cout << "Classifier train function (loading in data instances) took " << time_span.count() << " seconds." << endl;
+
+    t1 = high_resolution_clock::now();
+    //NORMALIZE DATA
+    double mean;
+    double total;
+    double sd;
+    for(int i = 0; i < this->numFeatures; i++){
+        total = 0;
+        mean = 0;
+        sd = 0;
+        //calculating mean
+        for(int j = 1; j < this->instances.size(); j++){
+            total += instances.at(j)->features.at(i);
+        }
+        mean = total/this->instances.size();
+        //calculating standard deviation
+        for(int j = 1; j < this->instances.size(); j++){
+            sd += pow(instances.at(j)->features.at(i) - mean,2);
+        }
+        sd = sd/(this->instances.size()-1);
+        sd = sqrt(sd);
+        //apply to dataset
+        for(int j = 1; j < this->instances.size(); j++){
+            instances.at(j)->features.at(i) = (instances.at(j)->features.at(i) - mean)/sd;
+        }
+    }
+    t2 = high_resolution_clock::now();
+    time_span = duration_cast<duration<double>>(t2 - t1);
+    cout << "Normalizing the data (using Z-Normalization) took " << time_span.count() << " seconds." << endl;
 }
 
 double Classifier::test(double instance_id){
