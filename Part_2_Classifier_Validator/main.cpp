@@ -7,7 +7,7 @@ using namespace std;
 int main(){
     Classifier* knn = new Classifier();
     
-    vector<int> features = {1,2,3};
+    vector<int> features = {3,5,7};
     //preproces vector
     for(int i = 0; i < features.size(); i++){
         features.at(i) = features.at(i)-1;
