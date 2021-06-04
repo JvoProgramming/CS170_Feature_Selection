@@ -14,7 +14,8 @@ int main(){
     Classifier* knn = new Classifier();
     double results;
     
-    vector<int> features = {1,5,17};
+    vector<int> features = {1,15,27};
+    vector<int> OGfeatures = features;
     //preproces vector
     for(int i = 0; i < features.size(); i++){
         features.at(i) = features.at(i)-1;
@@ -31,7 +32,7 @@ int main(){
     results = validator->loov(features);
     results *= 100;
 
-    cout << "Using feature set "; printVec(features); cout << " gives us a percentage of: " << results << '%' << endl;
+    cout << "Using feature set "; printVec(OGfeatures); cout << " gives us a percentage of: " << results << '%' << endl;
 
     return 0;
 }
