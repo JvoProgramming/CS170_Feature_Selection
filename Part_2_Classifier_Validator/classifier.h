@@ -13,6 +13,7 @@
 #include <numeric>
 #include <cmath>
 #include "float.h"
+#include <set>
 
 template <typename T>
 double vectors_distance(const std::vector<T>& a, const std::vector<T>& b) //TAKEN FROM http://www.cplusplus.com/forum/general/209784/
@@ -35,6 +36,7 @@ class Classifier{
         int numFeatures;
         void train(string filename);
         double test(double);
+        double test(double, vector<int>);
 };
 
 

@@ -6,9 +6,17 @@ using namespace std;
 
 int main(){
     Classifier* knn = new Classifier();
-    Validator* validator = new Validator(knn);
+    
+    vector<int> features = {1,2,3};
+    //preproces vector
+    for(int i = 0; i < features.size(); i++){
+        features.at(i) = features.at(i)-1;
+    }
+
     knn->train("cs_170_small80.txt");
-    //knn->test(3);
+    
+    Validator* validator = new Validator(knn);
+    validator->loov(features);
 
     return 0;
 }

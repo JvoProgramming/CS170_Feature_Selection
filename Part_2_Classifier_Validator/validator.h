@@ -11,6 +11,7 @@ class Validator{
     public:
         Validator(Classifier*);
         ~Validator();
+        vector<Instance*> instances;
         Classifier* classifier;
         double loov(vector<int>);
 };
