@@ -29,8 +29,8 @@ void Classifier::train(string filename){
     this->numFeatures = this->instances.at(0)->features.size()-1;
     inFS.close();
     high_resolution_clock::time_point t2 = high_resolution_clock::now();
-    duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
-    cout << "Classifier train function (loading in data instances) took " << time_span.count() << " seconds." << endl;
+    long long microseconds = std::chrono::duration_cast<std::chrono::microseconds>(t2-t1).count();
+    cout << "Classifier train function (loading in data instances) took " << microseconds << " microseconds." << endl;
 
     t1 = high_resolution_clock::now();
     //NORMALIZE DATA
@@ -58,8 +58,8 @@ void Classifier::train(string filename){
         }
     }
     t2 = high_resolution_clock::now();
-    time_span = duration_cast<duration<double>>(t2 - t1);
-    cout << "Normalizing the data (using Z-Normalization) took " << time_span.count() << " seconds." << endl;
+    microseconds = std::chrono::duration_cast<std::chrono::microseconds>(t2-t1).count();
+    cout << "Normalizing the data (using Z-Normalization) took " << microseconds << " microseconds." << endl;
 }
 
 double Classifier::test(double instance_id){
@@ -67,7 +67,7 @@ double Classifier::test(double instance_id){
     vector<double> testVec1(test_instance->features.begin()+1, test_instance->features.end());
     int nearestNeighborID;
     double bestScore = DBL_MAX;
-
+    //high_resolution_clock::time_point t1 = high_resolution_clock::now();
     for(int i = 0; i < instances.size(); i++){
         if(i == instance_id){
             continue;
@@ -78,8 +78,8 @@ double Classifier::test(double instance_id){
             nearestNeighborID = i;
         }
     }
-    //cout << "Best neighbor is instance " << nearestNeighborID << " with a distance of " << bestScore << " so label should be ";
-    //cout << instances.at(nearestNeighborID)->classLabel << endl;
+    //high_resolution_clock::time_point t2 = high_resolution_clock::now();
+    //microseconds = std::chrono::duration_cast<std::chrono::microseconds>(t2-t1).count();
     return instances.at(nearestNeighborID)->classLabel;
 }
 
@@ -95,6 +95,7 @@ double Classifier::test(double instance_id, vector<int> featureVec){
     int nearestNeighborID;
     double bestScore = DBL_MAX;
 
+    //high_resolution_clock::time_point t1 = high_resolution_clock::now();
     for(int i = 0; i < instances.size(); i++){
         if(i == instance_id){
             continue;
@@ -111,8 +112,7 @@ double Classifier::test(double instance_id, vector<int> featureVec){
         }
         //cout << testVec1.at(0) << ' ' << testVec2.at(0) << '\n';
     }
-
-    //cout << "Best neighbor is instance " << nearestNeighborID << " with a distance of " << bestScore << " so label should be ";
-    //cout << instances.at(nearestNeighborID)->classLabel << endl;
+    //high_resolution_clock::time_point t2 = high_resolution_clock::now();
+    //microseconds = std::chrono::duration_cast<std::chrono::microseconds>(t2-t1).count();
     return instances.at(nearestNeighborID)->classLabel;
 }

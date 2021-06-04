@@ -7,16 +7,25 @@ using namespace std;
 void printVec(vector<int>);
 
 int main(){
+    int userChoice;
+    cout << "Enter (1) to use small dataset or enter (2) to use large dataset: ";
+    cin >> userChoice;
+
     Classifier* knn = new Classifier();
     double results;
     
-    vector<int> features = {3,5,7};
+    vector<int> features = {1,5,17};
     //preproces vector
     for(int i = 0; i < features.size(); i++){
         features.at(i) = features.at(i)-1;
     }
 
-    knn->train("cs_170_small80.txt");
+    if(userChoice == 1){
+        knn->train("cs_170_small80.txt");
+    }
+    else if(userChoice == 2){
+        knn->train("cs_170_large80.txt");
+    }
     
     Validator* validator = new Validator(knn);
     results = validator->loov(features);

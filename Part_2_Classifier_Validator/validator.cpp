@@ -23,8 +23,8 @@ double Validator::loov(vector<int> featureSubset){
     }
 
     high_resolution_clock::time_point t2 = high_resolution_clock::now();
-    duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
-    cout << "Leave-One-Out-Validator took " << time_span.count() << " seconds." << endl;
+    long long microseconds = std::chrono::duration_cast<std::chrono::microseconds>(t2-t1).count();
+    cout << "Leave-One-Out-Validator took " << microseconds << " microseconds." << endl;
 
     percentage = (double)correct_predictions/(double)this->instances.size();
 
