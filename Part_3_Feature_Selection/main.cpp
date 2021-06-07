@@ -8,9 +8,12 @@
 
 using namespace std;
 
-
+Classifier* knn = new Classifier();
+Validator* validator = NULL;
 
 int main(){
+    knn->train("cs_170_small106.txt");
+    validator = new Validator(knn);
     srand(time(NULL));
     int numFeatures, choice;
     

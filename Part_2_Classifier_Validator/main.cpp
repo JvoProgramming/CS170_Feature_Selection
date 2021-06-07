@@ -22,10 +22,10 @@ int main(){
     }
 
     if(userChoice == 1){
-        knn->train("cs_170_small80.txt");
+        knn->train("cs_170_small106.txt");
     }
     else if(userChoice == 2){
-        knn->train("cs_170_large80.txt");
+        knn->train("cs_170_large106.txt");
     }
     
     Validator* validator = new Validator(knn);

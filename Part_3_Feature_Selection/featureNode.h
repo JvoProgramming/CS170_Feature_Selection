@@ -3,8 +3,13 @@
 
 #include <vector>
 #include <set>
+#include "validator.h"
+#include "classifier.h"
 
 using namespace std;
+
+extern Classifier* knn;
+extern Validator* validator;
 
 class featureNode{
     public:
@@ -22,7 +27,6 @@ class featureNode{
         void print();
         void printName();
         double getScore();
-
 };
 
 #endif
