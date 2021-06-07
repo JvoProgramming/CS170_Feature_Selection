@@ -21,7 +21,6 @@ class featureNode{
         ~featureNode();
         set<int> name;
         vector<featureNode*> children;
-        featureNode* parent;
         double score;
         void generateChildren();
         void print();

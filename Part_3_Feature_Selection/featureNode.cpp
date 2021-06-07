@@ -8,27 +8,23 @@
 
 
 featureNode::featureNode(){
-    this->parent = 0;
     this->children.clear();
     this->score = rand()%100;//((double)rand()/ (double)RAND_MAX)*100;
 }
 
 featureNode::featureNode(int vecName){
-    this->parent = 0;
     this->children.clear();
     this->name.insert(vecName);
     this->score = validator->loov(this->name) * 100;
 }
 
 featureNode::featureNode(set<int> v1){
-    this->parent = 0;
     this->children.clear();
     this->name = v1;
     this->score = validator->loov(this->name) * 100;
 }
 
 featureNode::featureNode(set<int> v1, set<int> v2){
-    this->parent = 0;
     this->children.clear();
     merge(v1.begin(), v1.end(), v2.begin(), v2.end(), inserter(this->name, this->name.begin()));
     this->score = validator->loov(this->name) * 100;

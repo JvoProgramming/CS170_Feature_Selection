@@ -34,6 +34,9 @@ double Validator::loov(vector<int> featureSubset){
 
 double Validator::loov(set<int> featureSet){
     vector<int> featureSubset(featureSet.begin(), featureSet.end());
+    for(int i = 0; i < featureSubset.size(); i++){
+        featureSubset.at(i) = featureSubset.at(i) - 1;
+    }
     int correct_predictions = 0;
     double result = 0;
     double percentage = 0;

@@ -7,6 +7,7 @@
 #include <vector>
 #include <set>
 #include <typeinfo>
+#include <list>
 
 using namespace std;
 
@@ -25,7 +26,6 @@ class greedySearch{
         void printMax();
         featureNode* bestNode;
         void generateSubsets();
-        set<set<int>> subsets;
 
 };
 

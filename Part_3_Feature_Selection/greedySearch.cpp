@@ -17,6 +17,30 @@ auto powerset(const S& s)
     return ret;
 }
 
+
+void print( list<int> l, set<set<int>> powerSet){ //https://stackoverflow.com/questions/4555565/generate-all-subsets-of-size-k-from-a-set
+    set<int> subset;
+    for(list<int>::iterator it=l.begin(); it!=l.end() ; ++it){
+        //cout << " " << *it;
+        subset.insert(*it);
+    }
+    powerSet.insert(subset);
+    //cout<<endl;
+}
+
+void subset(int arr[], int size, int left, int index, list<int> &l, set<set<int>> s){ //https://stackoverflow.com/questions/4555565/generate-all-subsets-of-size-k-from-a-set
+    if(left==0){
+        print(l,s);
+        return;
+    }
+    for(int i=index; i<size;i++){
+        l.push_back(arr[i]);
+        subset(arr,size,left-1,i+1,l, s);
+        l.pop_back();
+    }
+
+}     
+
 greedySearch::greedySearch(){
     this->numOfFeatures = 0;
     this->maxChild = NULL;
@@ -116,12 +140,20 @@ featureNode* greedySearch::search(featureNode* root){
 }
 
 featureNode* greedySearch::backSearch(featureNode* root){
+    root->score = validator->loov(root->name);
     featureNode* curr = root;
     int max = 0;
     int prevMax = 0;
     
+    int subsetNum[numOfFeatures];
+
     for(int i = 0; i < numOfFeatures; i++){
         curr->name.insert(i+1);
+        subsetNum[i] = i+1;
+    }
+
+    for(int i = numOfFeatures-1; i >= 0; i--){
+        //cout << subsetNum[i] << ' ';
     }
 
     this->root = curr;
@@ -132,10 +164,19 @@ featureNode* greedySearch::backSearch(featureNode* root){
     cout << "Using all features "; curr->printName(); cout << ", I get an accuracy of " << root->score << "%" << endl << endl;
     cout << "Beginning search." << endl << endl;
     
-    auto powerSet = powerset(this->root->name);
-    numOfFeatures--;
+    cout << "stuck here?" << endl;
+    set<set<int>> powerSet;
+    list<int> setList;
+
+
+
+    cout << "or here" << endl;
 
     while(numOfFeatures > 0){
+        setList.empty();
+        powerSet.empty();
+        subset(subsetNum,numOfFeatures,numOfFeatures-1,0,setList, powerSet);
+
         max = 0;
         for(auto set : powerSet) {
             if(set.size() == numOfFeatures){
