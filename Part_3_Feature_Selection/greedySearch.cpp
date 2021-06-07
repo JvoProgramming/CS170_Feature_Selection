@@ -143,8 +143,8 @@ featureNode* greedySearch::search(featureNode* root){
 
 featureNode* greedySearch::backSearch(featureNode* root){
     featureNode* curr = root;
-    int max = 0;
-    int prevMax = 0;
+    double max = 0;
+    double prevMax = 0;
     for(int i = 0; i < numOfFeatures; i++){
         curr->name.insert(i+1);
     }
@@ -155,7 +155,7 @@ featureNode* greedySearch::backSearch(featureNode* root){
         curr->name.insert(i+1);
         subsetNum[i] = i+1;
     }
-    root->score = validator->loov(root->name)*100;
+    curr->score = validator->loov(root->name)*100;
 
     this->root = curr;
     this->maxChild = curr;
@@ -167,15 +167,19 @@ featureNode* greedySearch::backSearch(featureNode* root){
     
     set<set<int>> powerSet;
     list<int> setList;
+    int iter;
 
-
+    if(numOfFeatures == 1){
+        cout << "(Warning, no more nodes to check) " << endl << "Finished search!! The best feature subset is "; this->bestNode->printName(); cout << " which has an accuracy of " << this->bestNode->score << "%" << endl << endl;
+        return this->bestNode;
+    }
     while(numOfFeatures > 0){
         setList.empty();
         s.empty();
         subset(subsetNum,numOfFeatures,numOfFeatures-1,0,setList);
         max = 0;
         for(auto set : s) {
-            cout << set.size() << ' ' << numOfFeatures << endl;
+            //cout << set.size() << ' ' << numOfFeatures << endl;
             if(set.size() == numOfFeatures-1){
                 featureNode* child = new featureNode(set);
                 if(this->existingFeatures.find(child->name) != this->existingFeatures.end()){
@@ -197,13 +201,17 @@ featureNode* greedySearch::backSearch(featureNode* root){
         curr->print();
 
         cout << endl << "Feature set "; maxChild->printName(); cout << " was best, accuracy is "; cout << this->maxChild->score << "%" << endl << endl;
-        powerSet = powerset(this->maxChild->name);
+        int* subsetName = new int[this->maxChild->name.size()];
+        iter = 0;
+        for(set<int>::iterator it=this->maxChild->name.begin(); it!=this->maxChild->name.end() ; ++it){
+            subsetName[iter] = *it;
+            iter++;
+        }
+
 
         if(prevMax < maxChild->score){
             prevMax = maxChild->score;
         }
-        
-        //cout << maxChild->score << " > " << prevMax << endl;
         
         if(prevMax > max){
             cout << "(Warning, Accuracy has decreased!)" << endl << "Finished search!! The best feature subset is "; this->bestNode->printName(); cout << " which has an accuracy of " << this->bestNode->score << "%" << endl << endl;

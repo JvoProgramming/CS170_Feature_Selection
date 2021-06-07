@@ -17,7 +17,7 @@ int main(){
     Classifier* knn = new Classifier();
     double results;
     
-    vector<int> features = {1,2,3,4,5,6,7,8,9,10,11,12,13};
+    vector<int> features = {1,2,4,5};
     vector<int> OGfeatures = features;
     //preproces vector
     for(int i = 0; i < features.size(); i++){
