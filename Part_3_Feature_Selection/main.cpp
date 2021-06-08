@@ -12,10 +12,8 @@ Classifier* knn = new Classifier();
 Validator* validator = NULL;
 
 int main(){
-    knn->train("cs_170_large106.txt");
-    validator = new Validator(knn);
     srand(time(NULL));
-    int numFeatures, choice;
+    int numFeatures, choice, dataChoice;
     
     cout << "Welcome to Johnny and Diego's Feature Selection Algorithm." << endl;
     cout << "Please enter total number of features: ";
@@ -24,6 +22,15 @@ int main(){
         cout << "The number of features must be greater than 0" << endl;
         return 0;
     }
+    cout << "Enter (1) to use small dataset or enter (2) to use large dataset: ";
+    cin >> dataChoice;
+    if(dataChoice == 1){
+        knn->train("cs_170_small106.txt");
+    }
+    else if(dataChoice == 2){
+        knn->train("cs_170_large106.txt");
+    }
+    validator = new Validator(knn);
     cout << "Type the number of the algorithm you want to run." << endl;
     cout << "1) Forward Selection" << endl;
     cout << "2) Backward Elimination" << endl;

@@ -1,23 +1,5 @@
 #include "greedySearch.h"
 
-//POWERSET GENERATOR http://www.rosettacode.org/wiki/Power_set#C.2B.2B
-template <class S>
-auto powerset(const S& s)
-{
-    std::set<S> ret;
-    ret.emplace();
-    for (auto&& e: s) {
-        std::set<S> rs;
-        for (auto x: ret) {
-            x.insert(e);
-            rs.insert(x);
-        }
-        ret.insert(begin(rs), end(rs));
-    }
-    return ret;
-}
-
-
 set<set<int>> s;
 
 void print( list<int> l, set<set<int>> powerSet){ //https://stackoverflow.com/questions/4555565/generate-all-subsets-of-size-k-from-a-set
