@@ -181,7 +181,7 @@ featureNode* greedySearch::backSearch(featureNode* root){
                     this->existingFeatures.insert(child->name);
                 }
             }
-            cout << "traversed" << endl;
+            //ADD COUT STATEMENT HERE IF YOU WANT TO SEE EACH ITERATION PER FEATURE SUBSET
         }
         curr->print();
 
