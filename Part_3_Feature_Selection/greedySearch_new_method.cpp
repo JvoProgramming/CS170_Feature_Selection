@@ -15,7 +15,7 @@ set<set<int>> subset(set<int> setName){
 
     for(int j = 0; j < childSetVec.size(); j++){ 
         childSet.clear();
-        //printSubset(childSet);
+        printSubset(childSet);
         for(int i = 0; i < childSetVec.size(); i++){
             if(i+1 == featureRemoved){
                 continue;
@@ -26,12 +26,11 @@ set<set<int>> subset(set<int> setName){
                 //cout << "inserted: " << i+1 << " | ";
             }
         }
-        //cout << "inserted childset into subsets" << endl;
         subsets.insert(childSet);
         featureRemoved++;
-        //printSubset(childSet);
+        printSubset(childSet);
     }
-    //cout << "subsets size: " << subsets.size() << endl;
+    cout << "subsets size: " << subsets.size() << endl;
     return subsets;
 }     
 
@@ -91,6 +90,7 @@ featureNode* greedySearch::search(featureNode* root){
 
     //AFTER FIRST GENERATION
     while(this->numOfFeatures > 0){
+        cout << "FIRST GENERATED COMPLETED" << endl;
         max = 0;
         for(int i = 0; i < curr->children.size(); i++){
             //check if set already exists
@@ -155,16 +155,15 @@ featureNode* greedySearch::backSearch(featureNode* root){
         cout << "(Warning, no more nodes to check) " << endl << "Finished search!! The best feature subset is "; this->bestNode->printName(); cout << " which has an accuracy of " << this->bestNode->score << "%" << endl << endl;
         return this->bestNode;
     }
-
-    //generate subsets
-    auto subsets = subset(this->root->name);
-
     while(numOfFeatures > 0){
         max = 0;
 
+        //generate subsets into S
+        auto subsets = subset(this->root->name);
+
         for(auto set : subsets) {
             //cout << set.size() << ' ' << numOfFeatures << endl;
-            if(set.size() == numOfFeatures-1){
+            if(set.size() == numOfFeatures){
                 featureNode* child = new featureNode(set);
                 if(this->existingFeatures.find(child->name) != this->existingFeatures.end()){
                     //item exists in set
@@ -181,7 +180,6 @@ featureNode* greedySearch::backSearch(featureNode* root){
                     this->existingFeatures.insert(child->name);
                 }
             }
-            cout << "traversed" << endl;
         }
         curr->print();
 
