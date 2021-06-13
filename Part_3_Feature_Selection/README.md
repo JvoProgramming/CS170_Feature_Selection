@@ -16,3 +16,5 @@ Small Dataset (Has 100 instances and 10 features)
 Large Dataset (Has 1000 instances, and 40 features)
 
 The application outputs will prompt you for different options. Press the corresponding number and press enter.
+
+If you want to use a different dataset, drag it to this directory and change the .txt values located within main.cpp on line 28 and 31
